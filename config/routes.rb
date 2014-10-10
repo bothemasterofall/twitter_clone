@@ -1,18 +1,8 @@
 Rails.application.routes.draw do
-	resources :sessions, :only => [:new, :create, :destroy]
-	resources :users do 
-		member do
-			get :following, :followers
-		end
-	end
-	
-	resources :microposts, :only => [:create, :destroy]
-	resources :relationships, :only => [:create, :destroy]
-	
-	root "pages#home"
-	get 'pages/contact'
-	get 'pages/about'
-	get 'pages/help'
+  root "pages#home"
+  get 'pages/contact'
+  get 'pages/about'
+  get 'pages/help'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+	#makes it so you can't edit other user's info if you're not them
+	before_filter :authenticate, :except => [:show, :new, :create]
+	before_filter :correct_user, :only => [:edit, :update]
+
 	def index
   		@users = User.paginate(:page => params[:page])
   		@title = "All users"
@@ -43,5 +47,14 @@ class UsersController < ApplicationController
 	private
 		def user_params
 			params.require(:user).permit(:name, :email, :password, :password_confirmation)
+		end
+
+		def authenticate
+			deny_access unless signed_in?
+		end
+
+		def correct_user
+			@user = User.find(params[:id])
+			redirect_to root_path unless current_user?(@user)
 		end
 end

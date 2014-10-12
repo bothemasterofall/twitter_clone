@@ -41,6 +41,11 @@ class User < ActiveRecord::Base
 			return nil if user.nil?
 			return user if user.has_password?(sub_pass)
 		end
+
+		def authentiate_with_salt(id, cookie_salt)
+			user = find_by_id(id)
+			(!user.nil? && user.salt == cookie_salt) ? user : nil
+		end
 	end
 
 	private

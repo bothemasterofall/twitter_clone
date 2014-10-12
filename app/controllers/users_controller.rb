@@ -67,7 +67,7 @@ class UsersController < ApplicationController
 		def admin_user
 			user = User.find(params[:id])
 			 if !current_user.admin? || current_user?(user) 
-			 	redirect_to users_path, :flash => {:success => "Admins can't delete themselves"}
+			 	redirect_to users_path, :flash => {:success => "You can't delete that"}
 			 end
 		end
 end

@@ -12,6 +12,10 @@ module SessionsHelper
 		user == current_user
 	end
 
+	def current_user_is_admin?
+		current_user[:admin]
+	end
+
 	def current_user
 		#instance vars only last per page. 
 		#this || makes it persist, so you stay signed in until page is closed.

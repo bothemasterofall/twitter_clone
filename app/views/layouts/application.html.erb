@@ -10,19 +10,7 @@
 		<div class="container">
 			<header>
 				<%= link_to image_tag("logo.png", :alt => "Sample App", :class => "round"), root_path %>
-				<nav class ="round">
-					<ul>
-						<li><%= link_to "Home", root_path %> </li>
-						<li><%= link_to "Help",  pages_help_path %> </li>
-						<% if signed_in? %>
-							<li><%= link_to "Profile", user_path(current_user) %></li>
-							<li><%= link_to "Sign out", new_session_path %></li>
-						<% else %>
-							<li><%= link_to "Sign in", new_session_path %>
-						<% end %>
-
-					</ul>
-				</nav>
+				<%= render 'layouts/header' %>
 			</header>
 			<section class="round">
 				<% flash.each do |key, value| %>

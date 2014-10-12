@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :users
-  resources :sessions, :only => [:new, :create, :destroy]
-
+  resources :sessions, :only => [:new, :create]
+  delete '/destroy_session', :to => 'sessions#destroy'
   root "pages#home"
   get 'pages/contact'
   get 'pages/about'

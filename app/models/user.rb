@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
 	attr_accessor :password
 
 	#everything the web needs to access needs to be on this line
-	attr_accessible :name, :email, :password, :password_confirmation
+	attr_accessible :name, :email, :password, :password_confirmation, :admin
 
 	email_regex = /\A[a-z\.\d]+@[a-z\.\d]+\.[a-z]+\z/i
 

@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 	#everything the web needs to access needs to be on this line
 	attr_accessible :name, :email, :password, :password_confirmation
 
-	has_many :microposts, :dependent => :destroy
+	has_many :microposts
 
 	email_regex = /\A[a-z\.\d]+@[a-z\.\d]+\.[a-z]+\z/i
 

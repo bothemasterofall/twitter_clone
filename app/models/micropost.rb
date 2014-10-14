@@ -14,7 +14,4 @@ class Micropost < ActiveRecord::Base
 
 	validates :content, :presence => true, :length => { :maximum => 140}
 	validates :user_id, :presence => true
-
-	#microposts are pulled from database in order of creation
-	default_scope :order => 'microposts.created_at DESC'
 end

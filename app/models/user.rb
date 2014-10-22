@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
 		Micropost.where("user_id = ?", self.id)
 	end
 
-	def following?
+	def following?(followed)
 		relationships.find_by_followed_id(followed)
 	end
 
@@ -60,7 +60,7 @@ class User < ActiveRecord::Base
 	end
 
 	def unfollow!(following)
-		relationships.find_by_followed_id(followed).destroy
+		relationships.find_by_followed_id(following).destroy
 	end
 
 	class << self

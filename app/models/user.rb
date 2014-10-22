@@ -18,8 +18,17 @@ class User < ActiveRecord::Base
 	#everything the web needs to access needs to be on this line
 	attr_accessible :name, :email, :password, :password_confirmation
 
-	has_many :microposts, :dependent => :destroy	#a user's microposts are destroyed along with the user.
-	
+	has_many :microposts, 	:dependent => :destroy 	#a user's microposts are destroyed along with the user.
+	has_many :relationships, 	:dependent => :destroy,
+								:foreign_key => "follower_id"
+	has_many :reverse_relationships, 	:dependent => :destroy,
+										:foreign_key => "followed_id",
+										:class_name => "Relationship"
+	has_many :following, 	:through => :relationships,
+							:source => :followed
+	has_many :followers, 	:through => :reverse_relationships,
+							:source => :follower
+
 	email_regex = /\A[a-z\.\d]+@[a-z\.\d]+\.[a-z]+\z/i
 
 	validates :name, :presence => true,
@@ -40,6 +49,18 @@ class User < ActiveRecord::Base
 
 	def feed
 		Micropost.where("user_id = ?", self.id)
+	end
+
+	def following?
+		relationships.find_by_followed_id(followed)
+	end
+
+	def follow!(followed)
+		relationships.create!(:followed_id => followed.id)
+	end
+
+	def unfollow!(following)
+		relationships.find_by_followed_id(followed).destroy
 	end
 
 	class << self
